@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dairy</title>
+<style>
+	.golden{
+		width:500px;
+		height: 150px;
+		margin-top: 10px;
+		margin-left:90px;
+	}
+</style>
+</head>
+<body bgcolor="lightblue">
+	<button onclick="deleteuser()"> deleteAccount</button>
+	<p id="iu1"></p>
+	<h1>Write Your EveryDay Text Here</h1>
+<div>
+<input type ="text" class="golden" id="io1" >
+<button onclick="savedata()">Save</button>
+</div>
+<script>
+const xml=new XMLHttpRequest();
+	const xml1=new XMLHttpRequest();	
+		const xml2=new XMLHttpRequest();	
+xml.open('GET','http://localhost:3000/savehome/find');
+	xml.setRequestHeader("Content-Type", "application/json");
+xml.send();
+
+xml.onload=()=>{
+	var dat=JSON.parse(xml.response);
+	if(dat.para === 'loginfirst'){
+window.alert('login/signup first dude');
+window.location.assign('http://localhost:3000/');
+	}else if(dat.para === 'reload'){
+		window.reload();														
+	}else {
+		var append ='data :- ';
+		console.log(dat.para.length);
+		for (jk of dat.para){
+append =append + jk.text +'\n';															
+	
+		}
+	document.getElementById("iu1").innerHTML=append;
+	
+}
+}
+
+var savedata=()=>{
+
+	xml1.open('POST','http://localhost:3000/savehome/home');
+	xml1.setRequestHeader("Content-Type", "application/json");
+	xml1.send(JSON.stringify({
+text:document.getElementById('io1').value
+	}));
+}
+var deleteuser=()=>{
+	xml2.open('DELETE','http://localhost:3000/savehome/delete');
+	xml2.setRequestHeader("Content-Type", "application/json");
+	xml2.send(JSON.stringify({
+
+	}));
+}
+xml2.onload=()=>{
+	var dat=JSON.parse(xml2.response);
+window.alert(dat.msg);
+}
+xml1.onload=()=>{
+	var dat=JSON.parse(xml1.response);
+window.alert(dat.msg);
+}
+	</script>
+
+</body>
+</html>

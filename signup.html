@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 	<title>signup</title>
+</head>
+<style>
+	.d1{
+		margin-left:40vw;
+		margin-top:25vh;
+	}
+	</style>
+<body>
+<div class="d1">
+	<h1>SignUp</h1>
+<p>First Name:-</p>
+<input type="text" id="i01" pattern="[a-z].{3,}" >
+<p id="p"></p>
+<p>Last Name:-</p>
+<input type="text" id="i02"  pattern="[a-z].{3,}" required>
+<p id="p."></p>
+<p>Email :-</p>
+<input type="email" id="i03" placeholder="eg:-shiva78@gmail.com"  required>
+<p id="p0"></p>
+<p>Password:-</p>
+<input type="Password" id="i04"  placeholder="Enter Password" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" minlength="6" maxlength="9"required>
+<p id="p1"></p>
+<p>Confirm Password:-</p>
+<input type="Password" id="i05" placeholder="Confirm Password" minlength="6" maxlength="9" required>
+<p id="p2"></p>
+<button onclick="add()"  style="margin-left:20px;">sign up</button>
+<br/>
+<br>
+<a href="http://localhost:3000/l">if already have account</a>
+</div>
+<script>
+		const xml=new XMLHttpRequest();
+	add=()=>{
+		if(emailvalidation()===0){
+
+		}else{
+		if(passwordvalidation()==0){
+
+		}else{
+		 xml.open("POST","http://localhost:3000/signup");
+  xml.setRequestHeader("Content-Type", "application/json");
+const data={
+	'firstname':document.getElementById("i01").value
+,'lastname':document.getElementById("i02").value,
+'email':document.getElementById("i03").value,
+'password':document.getElementById("i04").value
+};
+		xml.send(JSON.stringify(data));
+
+		}	
+		}			
+		}
+		xml.onload=()=>{
+
+		var q=JSON.parse(xml.response);
+		// alert(q.msg.errors.name);
+			console.log(q.msg);
+		window.alert(q.msg);
+		}
+	
+// 	namevalidation=()=>{
+// var p1=document.getElementById("i01");
+// var p2=document.getElementById("i02");
+// if(!p1.checkValidity()){
+// document.getElementById("p").innerHTML =p1.validationMessage;
+// 	return 0;
+// }
+// if(!p2.checkValidity()){
+// document.getElementById("p.").innerHTML =p2.validationMessage;
+// 	return 0;
+// }
+// return 1;
+// 	}
+	function emailvalidation(){
+document.getElementById("p0").innerHTML ="";
+var e1=document.getElementById("i03");
+	if(!e1.checkValidity()){
+document.getElementById("p0").innerHTML =e1.validationMessage;
+	return 0;	
+	}else{
+		document.getElementById("p0").innerHTML ="input ok";
+		return 1;
+	}
+	}
+function passwordvalidation(){
+	document.getElementById("p2").innerHTML="";
+document.getElementById("p1").innerHTML="";
+var p1=document.getElementById("i04");
+	var p2=document.getElementById("i05");	
+		if(!p1.checkValidity() ){
+    document.getElementById("p1").innerHTML = p1.validationMessage;
+    return 0;
+		}else{
+			if(p1.value===p2.value){
+document.getElementById("p2").innerHTML="Password Match";
+			
+			return 1;
+		}else{
+document.getElementById("p2").innerHTML="Password does not Match";
+return 0;
+			
+			}
+		}
+
+
+}
+</script>
+</body>
+</html>
