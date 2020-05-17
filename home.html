@@ -20,31 +20,34 @@
 <button onclick="savedata()">Save</button>
 </div>
 <script>
-const xml=new XMLHttpRequest();
+// const xml=new XMLHttpRequest();
 	const xml1=new XMLHttpRequest();	
 		const xml2=new XMLHttpRequest();	
-xml.open('GET','http://localhost:3000/savehome/find');
-	xml.setRequestHeader("Content-Type", "application/json");
-xml.send();
+// xml.open('GET','http://localhost:3000/savehome/find');
+// 	xml.setRequestHeader("Content-Type", "application/json");
+// 	xml.setRequestHeader("Authorization", `Bearor ${}`);
+// 	//local storage 
+	
+// xml.send();
 
-xml.onload=()=>{
-	var dat=JSON.parse(xml.response);
-	if(dat.para === 'loginfirst'){
-window.alert('login/signup first dude');
-window.location.assign('http://localhost:3000/');
-	}else if(dat.para === 'reload'){
-		window.reload();														
-	}else {
-		var append ='data :- ';
-		console.log(dat.para.length);
-		for (jk of dat.para){
-append =append + jk.text +'\n';															
+// xml.onload=()=>{
+// 	var dat=JSON.parse(xml.response);
+// 	if(dat.para === 'loginfirst'){
+// window.alert('login/signup first dude');
+// window.location.assign('http://localhost:3000/');
+// 	}else if(dat.para === 'reload'){
+// 		window.reload();														
+// 	}else {
+// 		var append ='data :- ';
+// 		console.log(dat.para.length);
+// 		for (jk of dat.para){
+// append =append + jk.text +'\n';															
 	
-		}
-	document.getElementById("iu1").innerHTML=append;
+// 		}
+// 	document.getElementById("iu1").innerHTML=append;
 	
-}
-}
+// }
+// }
 
 var savedata=()=>{
 

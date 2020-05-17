@@ -1,40 +1,59 @@
 var exp=require('express');
+// const url =require('url');
 var Dairy = require('./text');
 var Signup=require('./mongoose');
 // var id =require('./backend');
+var checkauth =require('./checkauth');
 
 var mongoose =require('mongoose');
 // var app=exp();
 const app=exp.Router();
-app.use(exp.json());
-var  safeid=null; 
-app.post('/',(req,res)=>{
-	var data=req.body;
-safeid = data.id;
+ app.use(exp.json());	
+// var  safeid=null; //global variable 
+// app.post('/',checkauth,(req,res)=>{
+// 	var data=req.body;
+// });
+ app.get('/',checkauth,(req,res)=>{
+ 	console.log("data entered");
+// res.render("http://localhost:3000/savehome");
+// res.redirect('/savehome/home');		
+  res.sendFile(__dirname+'/home.html');
 
-});
-app.get('/find',(req,res)=>{
-	if(safeid==null){
-res.send({ para:'loginfirst' });
-	}else {
-		Dairy.find({userid : safeid})
-		.populate("userid")
-		.exec()
-		.then(data=>{
-			console.log(data);
-			console.log(safeid);
-if(data.length == 0){
-res.send({para:data});
-}else{
-	res.send({para:data});
-}
-	}) 
-	.catch(error=>{
-res.send({para:'reload'});
-	})	
-	}
+ });
+//   app.get('/home',checkauth,(req,res)=>{
+//  	console.log("data entered");
+// // res.render("http://localhost:3000/savehome");
+// // res.redirect("localhost:3000/savehome");		
+//  // req.url ="http:localhost:3000/savehome/how";
+//  res.sendFile(__dirname+'/home.html');
 
-})
+
+//  });
+ 
+//checkauth
+// app.get('/find',checkauth ,(req,res)=>{
+// 	if(safeid==null){
+// res.send({ para:'loginfirst' });
+// 	}
+// 	else {
+// 		Dairy.find({userid : safeid})
+// 		.populate("userid")
+// 		.exec()
+// 		.then(data=>{
+// 			console.log(data);
+// 			console.log(safeid);
+// if(data.length == 0){
+// res.send({para:data});
+// }else{
+// 	res.send({para:data});
+// }
+// 	}) 
+// 	.catch(error=>{
+// res.send({para:'reload'});
+// 	})	
+// 	}
+
+// })
 
 app.post('/home',(req,res)=>{
 	var data =req.body;

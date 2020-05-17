@@ -27,13 +27,8 @@ else{
  if(data.length ===  0 ){
  signup.save((err,data)=>{
 if(err){
-//409 conflict 
-//422 theoritical request 
-// 500
-//404
-//200
-//201
-
+	 // assert.equal(error.errors['name'].message,
+  //   'awwwww');
 console.log(err);
  	res.status(500).json({
   	"msg":'Due to some issue data not being saved'
@@ -49,7 +44,7 @@ console.log(err);
  }
  else{
  	console.log('user already exists');
- res.status(409).json({  
+ res.status(409).json({
  	msg:"user already exists"
  });
  }

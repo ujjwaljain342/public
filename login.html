@@ -56,17 +56,24 @@ xml.send(
   		if (q.msg === 'gotohome'){
   			console.log(q.msg+'ahahaua');
 
-  		 console.log(q.id +'ahahaua');
+  		  console.log(q.token +'ahahaua');
   			
+       sessionStorage.setItem('token', q.token);
+	console.log('session created ');
+document.cookie = `token=${q.token}`;
 
-	
-  		 	xhttp .open('POST', 'http://localhost:3000/savehome');
-  		 	xhttp .setRequestHeader("Content-Type", "application/json");
-  		 	xhttp .send(JSON.stringify({id  : q.id}));
-  		 	 window.location.assign("http://localhost:3000/home");
+  		 //  xhttp .open('GET', 'http://localhost:3000/savehome');
+  		 // xhttp .setRequestHeader("Content-Type", "application/json");
+  		 // xhttp .setRequestHeader("Authorization", `Bearer ${q.token}`);
+     //   xhttp.send();
+
+  		 	  window.location.assign("http://localhost:3000/savehome");
   		 	
   	
   		 }
+       xhttp.onload =()=>{
+        (xhttp.response)
+       }
   		// alert(q.msg);
   		// console.log(xml.response);
  }

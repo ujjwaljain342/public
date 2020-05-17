@@ -11,6 +11,7 @@
 	</style>
 <body>
 <div class="d1">
+
 	<h1>SignUp</h1>
 <p>First Name:-</p>
 <input type="text" id="i01" pattern="[a-z].{3,}" >
@@ -19,10 +20,10 @@
 <input type="text" id="i02"  pattern="[a-z].{3,}" required>
 <p id="p."></p>
 <p>Email :-</p>
-<input type="email" id="i03" placeholder="eg:-shiva78@gmail.com"  required>
+<input type="email" id="i03" placeholder="eg:-shiva78@gmail.com"  pattern ="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
 <p id="p0"></p>
 <p>Password:-</p>
-<input type="Password" id="i04"  placeholder="Enter Password" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" minlength="6" maxlength="9"required>
+<input type="Password" id="i04"  placeholder="Enter Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" minlength="6" maxlength="9"required>
 <p id="p1"></p>
 <p>Confirm Password:-</p>
 <input type="Password" id="i05" placeholder="Confirm Password" minlength="6" maxlength="9" required>
@@ -33,6 +34,8 @@
 <a href="http://localhost:3000/l">if already have account</a>
 </div>
 <script>
+	// sessionStorage.setItem('hello','shivam');
+
 		const xml=new XMLHttpRequest();
 	add=()=>{
 		if(emailvalidation()===0){
