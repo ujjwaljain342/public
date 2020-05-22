@@ -15,6 +15,9 @@ const app=exp.Router();
 // });
  app.get('/',checkauth,(req,res)=>{
  	console.log("data entered");
+
+ 	// console.log(req.headers.cookie);
+ 	// console.log(req.headers.decode);
 // res.render("http://localhost:3000/savehome");
 // res.redirect('/savehome/home');		
   res.sendFile(__dirname+'/home.html');
@@ -31,36 +34,32 @@ const app=exp.Router();
 //  });
  
 //checkauth
-// app.get('/find',checkauth ,(req,res)=>{
-// 	if(safeid==null){
-// res.send({ para:'loginfirst' });
-// 	}
-// 	else {
-// 		Dairy.find({userid : safeid})
-// 		.populate("userid")
-// 		.exec()
-// 		.then(data=>{
-// 			console.log(data);
-// 			console.log(safeid);
-// if(data.length == 0){
-// res.send({para:data});
-// }else{
-// 	res.send({para:data});
-// }
-// 	}) 
-// 	.catch(error=>{
-// res.send({para:'reload'});
-// 	})	
-// 	}
+ app.get('/find',checkauth ,(req,res)=>{
 
-// })
+ 		Dairy.find({userid : req.headers.decode.userid})
+ 		.populate("userid")
+ 		.exec()
+ 		.then(data=>{
+ 			console.log(data);
+ 			// console.log(safeid);
+if(data.length == 0){
+ res.send({para:data});
+ }else{
+ 	res.send({para:data});
+ }
+ 	}) 
+.catch(error=>{
+ res.send({para:'reload'});
+ 	})	
+ 	
+ })
 
-app.post('/home',(req,res)=>{
+app.post('/home',checkauth,(req,res)=>{
 	var data =req.body;
 const text= new Dairy({
 	id :new mongoose.Types.ObjectId(),
     text : data.text,
-    userid : safeid
+    userid : req.headers.decode.userid
 })
 text.save()
 .then(data=>{
@@ -76,16 +75,17 @@ res.status(501).send({
 })
 })
 });
-app.delete('/delete',(req,res)=>{
-Dairy.remove({userid:safeid})
+app.delete('/delete',checkauth,(req,res)=>{
+Dairy.remove({userid:req.headers.decode.userid})
 .exec()
 .then(data=>{
- return Signup.remove({_id : safeid });
+ return Signup.remove({_id :req.headers.decode.userid });
 
 })
 .then(data1=>{
 		res.send({
 		msg:'resource deleted'
+		// window.location.assign("http://localhost:3000/l");
 	})
 	})
 .catch(error =>{

@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login</title>
+  <title>Login</title>
 </head>
 <style type="text/css">
-	.mid{
-		margin-left:40vw;
-		margin-top:30vh;
-	}
+  .mid{
+    margin-left:40vw;
+    margin-top:30vh;
+  }
+  body {
+  background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700005460-1200x750.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+   background-attachment: fixed;
+}
+p
+{
+  color: white;
+}
+h1
+{
+  color: white;
+}
+
 </style>
 <body>
-	<div class="mid" >
-	
-  <h1>Login</h1>
+  <div class="mid" >
+  
+  <h1 style="color:green;">Login</h1>
 <p id ="error" style="color: red;"></p>
-	<p>Enter Email or Number</p></body><br/>
-	<input type="text" id="i01">
-	<br/>
-	<p>Enter password</p>
-	<br/>
-	<input type="password" id="i02">
-	
+  <p>Enter Email or Number</p></body><br/>
+  <input type="text" id="i01">
+  <br/>
+  <p>Enter password</p>
+  <br/>
+  <input type="password" id="i02">
+  
 <p id="gt12"></p>
 
 <p id="gt13"></p>
@@ -29,70 +44,70 @@
 <p>if you have new user click <a href="http://localhost:3000/"> Sign Up</a></p>
 </div>
 <script>
-	const xml=new XMLHttpRequest();
-	const xhttp = new XMLHttpRequest();
+  const xml=new XMLHttpRequest();
+  const xhttp = new XMLHttpRequest();
 var verify=()=>{
 xml.open('POST','http://localhost:3000/login');
 xml.setRequestHeader("Content-Type", "application/json");
 xml.send(
-	JSON.stringify(
- 		{  'email':document.getElementById('i01').value,
+  JSON.stringify(
+    {  'email':document.getElementById('i01').value,
             'password':document.getElementById('i02').value
  }
  )
- 	);
+  );
 }
-	
+  
  xml.onload=()=>{
 
-  		 var q=JSON.parse(xml.response);
-  		 if(q.msg ==='gotologin'){
-  		 	// window.alert('you have to signup first');
-  		document.getElementById("error").innerHTML="No User with this email Exists ";
-  		 	// window.location.assign("http://localhost:3000/");	
-  	
+       var q=JSON.parse(xml.response);
+       if(q.msg ==='gotologin'){
+        // window.alert('you have to signup first');
+      document.getElementById("error").innerHTML="No User with this email Exists ";
+        // window.location.assign("http://localhost:3000/");  
+    
 
-  		 }
-  		if (q.msg === 'gotohome'){
-  			console.log(q.msg+'ahahaua');
+       }
+      if (q.msg === 'gotohome'){
+        console.log(q.msg+'ahahaua');
 
-  		  console.log(q.token +'ahahaua');
-  			
+        console.log(q.token +'ahahaua');
+        
        sessionStorage.setItem('token', q.token);
-	console.log('session created ');
+  console.log('session created ');
 document.cookie = `token=${q.token}`;
 
-  		 //  xhttp .open('GET', 'http://localhost:3000/savehome');
-  		 // xhttp .setRequestHeader("Content-Type", "application/json");
-  		 // xhttp .setRequestHeader("Authorization", `Bearer ${q.token}`);
+       //  xhttp .open('GET', 'http://localhost:3000/savehome');
+       // xhttp .setRequestHeader("Content-Type", "application/json");
+       // xhttp .setRequestHeader("Authorization", `Bearer ${q.token}`);
      //   xhttp.send();
 
-  		 	  window.location.assign("http://localhost:3000/savehome");
-  		 	
-  	
-  		 }
+          window.location.assign("http://localhost:3000/savehome");
+        
+    
+       }
        xhttp.onload =()=>{
         (xhttp.response)
        }
-  		// alert(q.msg);
-  		// console.log(xml.response);
+      // alert(q.msg);
+      // console.log(xml.response);
  }
 // return q.msg;
-// 	 // if(q.msg == 'login first'){
-// 			// const xml=new XMLHttpRequest();
+//   // if(q.msg == 'login first'){
+//      // const xml=new XMLHttpRequest();
 
 // }
 // console.log(d());
 // if(d=='login first'){
-// 	console.log(d);
-// 		xml.open('GET','http://localhost:3000/');
+//  console.log(d);
+//    xml.open('GET','http://localhost:3000/');
 //  xml.setRequestHeader("Content-Type", "application/json");
 //  xml.send();
 
 // }
 
-	// }
-	</script>
+  // }
+  </script>
 
 </body>
 </html>
